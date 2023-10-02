@@ -1,0 +1,51 @@
+-- Creacion de la tabla Hotel
+CREATE TABLE Hotel (
+    HotelID INT PRIMARY KEY,
+    Nombre VARCHAR(255) NOT NULL,
+    Ubicacion VARCHAR(255) NOT NULL
+);
+
+-- Creacion de la tabla Habitacion
+CREATE TABLE Habitacion (
+    HabitacionID INT PRIMARY KEY,
+    HotelID INT REFERENCES Hotel(HotelID),
+    Numero INT NOT NULL,
+    Tipo VARCHAR(50) NOT NULL,
+    Caracteristicas TEXT,
+    Equipamiento TEXT,
+    PrecioDiario FLOAT NOT NULL,
+    Estado VARCHAR(50) NOT NULL
+);
+
+-- Creacion de la tabla Cliente
+CREATE TABLE Cliente (
+    ClienteID INT PRIMARY KEY,
+    Nombre VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Creacion de la tabla Reserva
+CREATE TABLE Reserva (
+    ReservaID INT PRIMARY KEY,
+    ClienteID INT REFERENCES Cliente(ClienteID),
+    HabitacionID INT REFERENCES Habitacion(HabitacionID),
+    FechaInicio DATE NOT NULL,
+    FechaFin DATE NOT NULL,
+    Estado VARCHAR(50) NOT NULL
+);
+
+-- Creacion de la tabla Pago
+CREATE TABLE Pago (
+    PagoID INT PRIMARY KEY,
+    ReservaID INT REFERENCES Reserva(ReservaID),
+    Monto FLOAT NOT NULL,
+    Fecha DATE NOT NULL,
+    Metodo VARCHAR(50) NOT NULL
+);
+
+-- Creacion de la tabla Empleado
+CREATE TABLE Empleado (
+    EmpleadoID INT PRIMARY KEY,
+    Nombre VARCHAR(255) NOT NULL,
+    Tipo VARCHAR(50) NOT NULL
+);
